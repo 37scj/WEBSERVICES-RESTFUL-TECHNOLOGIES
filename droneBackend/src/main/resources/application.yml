@@ -1,0 +1,61 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:h2:~/fiapDroneDatabase;DB_CLOSE_ON_EXIT=FALSE
+    username: fiap
+    password: fiap
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+#      ddl-auto: update
+
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+      enabled: true
+
+  # Interface : localhost:15672
+  # Rabbit Servidor
+  rabbitmq:
+    host: localhost
+    port: 5672
+    # User
+    username: guest
+    password: guest
+    # Nome do Exchanges
+    exchange: projeto.mba.fiap
+    # RoutingKey -> Representa A Queue que a Exchange esta enviado
+    routing-key: queue.producer.mba
+
+  #Email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: fiapprojectintegration@gmail.com
+    password: fiap123456Oi
+
+    # Other properties
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          # TLS , port 587
+          starttls:
+            enable: true
+
+amqp:
+  url: http://localhost:8001/send
+
+checksensors:
+    # 5 minutos
+  fixedRate: 10000
+  send-to: lucasrodriguesdonascimento@outlook.com, gabrielltr84@gmail.com

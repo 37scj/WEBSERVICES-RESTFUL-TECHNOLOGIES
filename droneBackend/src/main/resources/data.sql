@@ -1,0 +1,1 @@
+insert into tb_drone (latitude, longitude, nome, temperatura, tracking, umidade, id) values (-23.533773, -46.625290,'Drone',0, false, 0, 1);
