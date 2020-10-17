@@ -13,8 +13,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 const routes = [
   { name: 'Home', path: '/', exact: true, component: Home },
-  { name: 'Tracking', path: '/tracking', exact: true, component: Tracking },
-  { name: 'mais uma', path: '/maisuma', exact: true, component: Home },
+  { name: 'Mapa', path: '/tracking', exact: true, component: Tracking },
 ];
 
 function App() {

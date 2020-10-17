@@ -25,12 +25,6 @@ public class DroneEntity implements Serializable {
     @Column
     private Double temperatura;
 
-    @Column
-    private Double umidade;
-
-    @Column
-    private Boolean tracking;
-
     public DroneEntity() {
         // TODO Auto-generated constructor stub
     }
@@ -43,8 +37,6 @@ public class DroneEntity implements Serializable {
         drone.setLatitude(this.getLatitude());
         drone.setLongitude(this.getLongitude());
         drone.setTemperatura(this.getTemperatura());
-        drone.setUmidade(this.getUmidade());
-        drone.setTracking(this.getTracking());
         return drone;
     }
 
@@ -59,10 +51,11 @@ public class DroneEntity implements Serializable {
     public String getNome() {
         return nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public Double getLatitude() {
         return latitude;
     }
@@ -87,19 +80,4 @@ public class DroneEntity implements Serializable {
         this.temperatura = temperatura;
     }
 
-    public Double getUmidade() {
-        return umidade;
-    }
-
-    public void setUmidade(Double umidade) {
-        this.umidade = umidade;
-    }
-
-    public Boolean getTracking() {
-        return tracking;
-    }
-
-    public void setTracking(Boolean tracking) {
-        this.tracking = tracking;
-    }
 }

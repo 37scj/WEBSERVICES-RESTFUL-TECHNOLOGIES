@@ -12,8 +12,6 @@ public class DroneDTO implements Serializable {
     private Double latitude = 0d;
     private Double longitude = 0d;
     private Double temperatura = 0d;
-    private Double umidade = 0d;
-    private Boolean tracking = false;
 
     public DroneDTO() {
     }
@@ -25,8 +23,6 @@ public class DroneDTO implements Serializable {
             this.setLatitude(saveDrone.getLatitude());
             this.setLongitude(saveDrone.getLongitude());
             this.setTemperatura(saveDrone.getTemperatura());
-            this.setUmidade(saveDrone.getUmidade());
-            this.setTracking(saveDrone.getTracking());
         }
     }
 
@@ -70,25 +66,4 @@ public class DroneDTO implements Serializable {
         this.temperatura = temperatura;
     }
 
-    public Double getUmidade() {
-        return umidade;
-    }
-
-    public void setUmidade(Double umidade) {
-        this.umidade = umidade;
-    }
-
-    public Boolean getTracking() {
-        return tracking;
-    }
-
-    public void setTracking(Boolean tracking) {
-        this.tracking = tracking;
-    }
-
-// @Override
-    // public String toString() {
-    //     return "Drone Id: " + id + " - Nome: " + nome + "\n Latitude:" + latitude + "°\n Longitude:" + longitude
-    //             + "°\n Temperatura:" + temperatura + " °C\n Umidade:" + umidade + " %";
-    // }
 }

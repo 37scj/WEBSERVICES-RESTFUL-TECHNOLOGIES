@@ -6,16 +6,12 @@ import br.com.fiap.drone.producer.repository.DroneRepository;
 import br.com.fiap.drone.producer.service.DroneService;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@EnableAsync
 @Service
 public class DroneServiceImpl implements DroneService {
 
@@ -33,8 +29,8 @@ public class DroneServiceImpl implements DroneService {
         DroneEntity newDrone = null;
         if (droneParameter.getId() != null) {
             newDrone = droneRepository.findById(droneParameter.getId())
-            		.orElse(newDrone =  new DroneEntity());
-                    //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                    .orElse(newDrone = new DroneEntity());
+            //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         } else {
             newDrone = new DroneEntity();
         }
@@ -51,14 +47,8 @@ public class DroneServiceImpl implements DroneService {
         if (droneParameter.getLongitude() != null) {
             newDrone.setLongitude(droneParameter.getLongitude());
         }
-        if (droneParameter.getUmidade() != null) {
-            newDrone.setUmidade(droneParameter.getUmidade());
-        }
         if (droneParameter.getTemperatura() != null) {
             newDrone.setTemperatura(droneParameter.getTemperatura());
-        }
-        if (droneParameter.getTracking() != null) {
-            newDrone.setTracking(droneParameter.getTracking());
         }
 
         final DroneEntity savedDrone = droneRepository.save(newDrone);

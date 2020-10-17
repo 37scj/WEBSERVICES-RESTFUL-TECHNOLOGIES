@@ -10,7 +10,8 @@ public interface DroneService {
     DroneDTO storeDroneInfo(DroneDTO dronePresenter);
 
     List<DroneDTO> findAllDrone();
+
     Optional<DroneDTO> findById(Long id);
 
-	void deleteById(Long id);
+    void deleteById(Long id);
 }

@@ -38,11 +38,11 @@ export default function Tracking() {
   useEffect(() => fetchMarkers(), []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       fetchMarkers();
-    }, 10000);
+    }, 500);
     // Clear timeout if the component is unmounted
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -58,7 +58,9 @@ export default function Tracking() {
     <h3>Tracking drone</h3>
     <GoogleMapWrap keyName="id" markers={markers} defaultCenter={center} />
     {/* <img alt="Mapa mostrando onde estão os drones" src={map} style={{ 'width': '100%' }} /> */}
-    markers: {JSON.stringify(markers)}
+    <div>
+      markers: {markers && markers.map(m => (<div>{JSON.stringify(m)}</div>))}
+    </div>
   </div>
   );
 }

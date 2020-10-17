@@ -2,7 +2,6 @@
 const fetch = require("isomorphic-fetch");
 const isDebug = true;
 const urlBaseBackend = 'http://localhost:8090';
-const urlBaseProducer = 'http://localhost:8091';
 const headers = {
   'Accept': 'application/json, text/plain',
   'Content-Type': 'application/json'
@@ -42,30 +41,13 @@ function deleteDrone(id) {
 }
 
 /**
- * Simula o envio de dados do drone.
+ * Simula o envio de dados do drone. Atualiza os dados
  * @param {Drone} drone 
  */
 function saveDrone(drone) {
-  const url = `${urlBaseProducer}/send`;
-  return fetch(url, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(drone)
-
-  }).then(a => {
-    if (isDebug) console.log(url, a);
-    return a;
-  });
-}
-
-/**
- * Teste de inserção na base
- * @param {Drone} drone 
- */
-function saveDrone_backup(drone) {
   const url = `${urlBaseBackend}/drones`;
   return fetch(url, {
-    method: 'POST',
+    method: 'PATCH',
     headers: headers,
     body: JSON.stringify(drone)
 
@@ -87,4 +69,4 @@ function newDrone(nome) {
   });
 }
 
-export default { getAllDrones, getDrone, deleteDrone, saveDrone, newDrone, saveDrone_backup };
+export default { getAllDrones, getDrone, deleteDrone, saveDrone, newDrone };

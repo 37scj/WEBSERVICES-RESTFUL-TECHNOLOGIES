@@ -4,15 +4,14 @@ import droneService from '../../services/droneService';
 import style from './drone.module.css';
 
 export default (props) => {
-    console.log('render', props)
     const drone = {
         id: useFormInput(props.id ? props.id : 1),
-        nome: useFormInput(props.nome ? props.nome : 'Drone 1'), 
+        nome: useFormInput(props.nome ? props.nome : 'Drone 1'),
         latitude: useFormInput(props.latitude ? props.latitude : -23.533773),
         longitude: useFormInput(props.longitude ? props.longitude : -46.625290),
-        temperatura: useFormInput(props.temperatura ? props.temperatura : 29.2),
-        umidade: useFormInput(props.umidade ? props.umidade : 45.3),
-        tracking: useFormInput((props.tracking !== null || props.tracking !== undefined) ? props.tracking : false),
+        temperatura: useFormInput(props.temperatura ? props.temperatura : 0),
+        umidade: useFormInput(props.umidade ? props.umidade : 60),
+        tracking: useFormInput((props.tracking !== null || props.tracking !== undefined) ? props.tracking : true),
     }
     function setDrone(d) {
         if ((!d || !d.id) && props.fetchDrones) {
@@ -30,16 +29,13 @@ export default (props) => {
     function useFormInput(initialValue) {
         const [value, setValue] = useState(initialValue)
         const onChange = (e, newValue) => {
-            let v=null;
+            let v = null;
             if (newValue != null || newValue != undefined) {
-                v=newValue;
+                v = newValue;
             } else {
-                v=(e.target.value);
+                v = (e.target.value);
             }
             setValue(v);
-            if (v != value) {
-                setTimeout(()=>updateDrone(), 200);
-            }
         }
         return {
             value,
@@ -47,11 +43,22 @@ export default (props) => {
         }
     }
 
+    let updating = false;
+    useEffect(() => {
+        if (updating) {
+            clearTimeout(updating);
+            updating = false;
+            console.log('clear')
+        }
+        updating = setTimeout(() => updateDrone(), 500);
+        return () => clearTimeout(updating);
+    }, [drone]);
+
     function updateDrone() {
         if (drone.id && !drone.id.value) {
-            console.error("Drone sem ID");
+            throw new Error("Drone sem ID");
         }
-        const data = {
+        const droneSave = {
             id: drone.id.value,
             nome: drone.nome.value,
             latitude: drone.latitude.value,
@@ -61,10 +68,11 @@ export default (props) => {
             tracking: drone.tracking.value,
         };
 
-        console.log('updating', drone.id, data);
+        console.log('set to update', droneSave.id, droneSave);
 
-        droneService.saveDrone(data)
-            .then(data => console.log('save', data))
+        droneService.saveDrone(droneSave)
+            .then(r => r.json())
+            .then(ret => console.log('saved', ret))
             .catch(error => console.log(error));
 
     };
@@ -116,7 +124,7 @@ export default (props) => {
             <Grid container item={true} xs={12} alignItems="center" className="MuiInputBase-root MuiInput-root MuiInput-underline">
                 <FormLabel>Temperature</FormLabel>
                 <input className="MuiInputBase-input MuiInput-input" {...drone.temperatura} />
-                <Slider  
+                <Slider
                     {...drone.temperatura}
                     step={0.1} min={-25} max={40}
                     marks={[-12, 0, 12, 22, 32]}
@@ -138,12 +146,12 @@ export default (props) => {
                     getAriaValueText={() => drone.umidade.value}
                 />
             </Grid>
-            <Grid container item={true} xs={12} spacing={1}>
+            {/* <Grid container item={true} xs={12} spacing={1}>
                 <FormControlLabel
                     control={<Switch {...drone.tracking} />}
                     labelPlacement="start" label="Tracking"
                 />
-            </Grid>
+            </Grid> */}
             <Grid container item={true} justify="space-evenly" xs={12}>
                 <Button danger="true" onClick={() => deleteDrone()}>Excluir</Button>
                 <Button primary="true" onClick={() => updateDrone()}>Salvar</Button>
