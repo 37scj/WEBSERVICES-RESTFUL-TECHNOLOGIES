@@ -4,6 +4,7 @@
 # Documentação 
 
   -  http://localhost:8090/swagger-ui.html
+  -  Assista a demonstração aqui: https://www.loom.com/share/b86948b290b8490c9c44e98019f11f91
 
 # Base de dados H2
  - H2 Console  http://localhost:8090/h2-console
